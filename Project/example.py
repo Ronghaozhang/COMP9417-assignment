@@ -5,14 +5,12 @@ from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 
-
 # Create text
 text_data = np.array(['I love Brazil. Brazil!',
                       'Brazil is best',
                       'I like Germany more, Germany beats both',
                       'I like Italy, because Italy is beautiful',
                       'I am from Germany, so I like Germany more'])
-
 
 # Create bag of words
 count = CountVectorizer()
@@ -22,7 +20,7 @@ bag_of_words = count.fit_transform(text_data)
 X = bag_of_words
 
 # Create target vector
-y = np.array([0,0,1,0,1])
+y = np.array([0, 0, 1, 0, 1])
 
 X_train = X[:3]
 X_test = X[3:]
