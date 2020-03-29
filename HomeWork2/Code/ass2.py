@@ -78,6 +78,16 @@ class TitanicSinkingModel:
         # graph.format = 'jpg'
         # graph.render("decision_tree_plot_optimal")
 
+    def part_D_calculation(self):
+        print("female and survived: ")
+        print(self.df.query('Sex == 1  & Survived ==1'))
+        print("all female: ")
+        print(self.df.query('Sex == 1'))
+        print("first class and survived: ")
+        print(self.df.query('Pclass == 1  & Survived ==1'))
+        print("all first class: ")
+        print(self.df.query('Pclass == 1'))
+
 
 def print_df_normalized(self):
     print(self.df_normalized.head().to_string())
@@ -88,5 +98,6 @@ if __name__ == '__main__':
     titianic_sinking_model.preprocessing()
     # titianic_sinking_model.print_df_normalized()
     # print(titianic_sinking_model.data_train.to_string())
-    # titianic_sinking_model.fit_decision_tree()
+    titianic_sinking_model.fit_decision_tree()
     titianic_sinking_model.find_optimal_decision_tree()
+    titianic_sinking_model.part_D_calculation()

@@ -25,13 +25,21 @@
     the part c's plots, pick the maximum score with the lowest varience.
     \subsection{Part C}\label{subsec:part-c2}
     \begin{center}
-                Plot For Test Dataset
+        Plot For Test Dataset
     \end{center}
     \includegraphics[scale=0.8]{../Plot/plot_test.png}
-     \begin{center}
-                Plot For Train Dataset
+    \begin{center}
+        Plot For Train Dataset
     \end{center}
     \includegraphics[scale=0.8]{../Plot/plot_train.png}
     \subsection{Part D}\label{subsec:part-d}
+    We make the asumption that 'Sex' and 'Pclass' are independent feature. \\
+    Thus, {\fontsize{9} P(S=true \lvert G=female,C=1)  = P(S= true \lvert G=female) *
+    P(S=true \lvert C=1)} \\
+    P(S=true \lvert G=female) = P(G=female) \cap P(S=true) / P(G=female) \\
+    = 109 / 573 \\
+    P(S=true \lvert C=1) = 136/216 \\
+     P(S=true \lvert G=female,C=1) = 11.98\%.
+
 
 \end{document}
