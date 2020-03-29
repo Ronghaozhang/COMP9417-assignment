@@ -2,10 +2,14 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn import tree
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, roc_curve, auc
 
+
+# import numpy as np
+# import seaborn as sns
 # import graphviz
 # import matplotlib.pyplot as plt
+
 
 class TitanicSinkingModel:
     def __init__(self, filename):
@@ -49,6 +53,31 @@ class TitanicSinkingModel:
         acc2 = accuracy_score(labels_test2, self.target_train)
         print("acc for train set is : " + str(acc2))
 
+    def find_optimal_decision_tree(self):
+        # min_samples_leaf the minmum number of leaves a split
+        # can happen according to the value of entropy
+        auc_tain = {}
+        auc_test = {}
+        for i in range(2, 21):
+            descion_tree = tree.DecisionTreeClassifier(min_samples_leaf=i)
+            descion_tree.fit(self.data_train, self.target_train)
+            false_positive_rate, true_positive_rate, thresholds = roc_curve(self.target_train, descion_tree.predict(self.data_train))
+            auc_tain[i] = auc(false_positive_rate, true_positive_rate)
+            false_positive_rate, true_positive_rate, thresholds = roc_curve(self.target_test, descion_tree.predict(self.data_test))
+            auc_test[i] = auc(false_positive_rate, true_positive_rate)
+            # fig = plt.figure()
+            # d = {'min_samples_leaf': np.array(list(auc_tain)), 'AUC score': np.array(list(auc_tain.values()))}
+            # pd_plot = pd.DataFrame(d)
+            # sns.lineplot(x='min_samples_leaf', y='AUC score', data=pd_plot)
+            # plt.show()
+            # fig.savefig('plot_train.png')
+        self.clf = tree.DecisionTreeClassifier(min_samples_leaf=6)
+        self.clf.fit(self.data_train, self.target_train)
+        # dot_data = tree.export_graphviz(self.clf, out_file=None)
+        # graph = graphviz.Source(dot_data)
+        # graph.format = 'jpg'
+        # graph.render("decision_tree_plot_optimal")
+
 
 def print_df_normalized(self):
     print(self.df_normalized.head().to_string())
@@ -59,4 +88,5 @@ if __name__ == '__main__':
     titianic_sinking_model.preprocessing()
     # titianic_sinking_model.print_df_normalized()
     # print(titianic_sinking_model.data_train.to_string())
-    titianic_sinking_model.fit_decision_tree()
+    # titianic_sinking_model.fit_decision_tree()
+    titianic_sinking_model.find_optimal_decision_tree()
